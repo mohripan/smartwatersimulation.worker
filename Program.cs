@@ -1,9 +1,17 @@
 using Azure.Identity;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 using SmartWaterSimulation.Worker;
 using SmartWaterSimulation.Worker.Configuration;
 using SmartWaterSimulation.Worker.Domain;
 
 var builder = Host.CreateApplicationBuilder(args);
+
+builder.Services.AddSingleton(new JsonSerializerSettings
+{
+    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+    NullValueHandling = NullValueHandling.Ignore
+});
 
 var keyVaultName = builder.Configuration["KeyVaultName"];
 if (!string.IsNullOrEmpty(keyVaultName))

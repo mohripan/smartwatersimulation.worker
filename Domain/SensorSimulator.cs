@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
 using SmartWaterSimulation.Worker.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartWaterSimulation.Worker.Domain
 {
@@ -34,7 +29,7 @@ namespace SmartWaterSimulation.Worker.Domain
 
             return new SensorData
             {
-                SensorId = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Timestamp = DateTime.UtcNow,
                 Value = value
             };

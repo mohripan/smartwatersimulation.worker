@@ -1,12 +1,7 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using SmartWaterSimulation.Worker.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SmartWaterSimulation.Worker.Domain
 {
@@ -26,10 +21,10 @@ namespace SmartWaterSimulation.Worker.Domain
 
         public async Task PublishSensorDataAsync(SensorData sensorData)
         {
-            var jsonMessage = JsonSerializer.Serialize(sensorData);
+            var jsonMessage = JsonConvert.SerializeObject(sensorData);
             var message = new ServiceBusMessage(jsonMessage)
             {
-                MessageId = sensorData.SensorId
+                MessageId = sensorData.Id
             };
 
             await _sender.SendMessageAsync(message);
